@@ -1,0 +1,11 @@
+ <connection>
+     <which-session>0</which-session>
+     
+	 <session>
+	     <ServiceURL>http://localhost:8080/SMLService/SMLService?wsdl</ServiceURL>
+	 </session>
+	 
+	  <session>
+		<ServiceURL>http://localhost:8080/SMLService/SMLService?wsdl</ServiceURL>
+	 </session>
+ </connection>
