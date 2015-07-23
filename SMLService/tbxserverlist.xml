@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servers>
+	
+   <server name="TEST" autodeploy="true" type="service" ip="192.168.5.113" user="nishan" passwd="nishan321" path="/usr/local/tbx/RND_GF/glassfish/domains/nishan/autodeploy/"/>
+    
+</servers>

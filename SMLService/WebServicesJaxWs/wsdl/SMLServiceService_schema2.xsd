@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://service.sml.code.mcs" xmlns:tns="http://service.sml.code.mcs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="getDoctorsList" type="tns:getDoctorsList"/>
+
+  <xs:element name="getDoctorsListResponse" type="tns:getDoctorsListResponse"/>
+
+  <xs:complexType name="getDoctorsList">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getDoctorsListResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

@@ -1,0 +1,98 @@
+<!-- ==================================================== -->
+<!-- Author: Dasun Athukorala-->
+<!-- ==================================================== -->
+
+<project name="DeploySMLService" default="packandupload">
+	<propertyfile file="${basedir}\build.number" comment="Module Build Number">
+		<entry key="build.number" type="int" default="0000" operation="+"
+			pattern="0000" />
+	</propertyfile>
+	<propertyfile file="${basedir}\..\masterbuild.number"
+		comment="Module Build Number">
+		<entry key="masterbuild.number" type="int" default="0000"
+			pattern="0000" />
+	</propertyfile>
+	<property file="${basedir}\build.number" />
+	<property file="${basedir}\..\masterbuild.number" />
+	<property file="${basedir}\..\build.properties" />
+
+	<property name="warDir" VALUE="${basedir}/WebServicesJaxWs" />
+	<!-- TODO [ Set name of the war file ] ____________________ -->
+	<property name="warFile" VALUE="${warDir}/SMLService.war" />
+
+	<target name="clean">
+		<delete file="${warFile}" />
+	</target>
+
+	<!-- Create the War File -->
+	<target name="package">
+		<jar jarfile="${warFile}">
+			<manifest>
+				<attribute name="Manifest-Version" value="${version.number}" />
+				<!-- TODO [ Set name of the service ] -->
+				<attribute name="Implementation-Version"
+					value="SMLService ${version.number} Build ${masterbuild.number}-${build.number}" />
+			</manifest>
+
+			<zipfileset prefix="WEB-INF" file="${warDir}/web.xml" />
+			<zipfileset prefix="WEB-INF" file="${warDir}/sun-jaxws.xml" />
+
+			<zipfileset prefix="WEB-INF/wsdl" DIR="${warDir}\wsdl"
+				includes="*.*" excludes="mcs/**/*.*" />
+			<zipfileset prefix="WEB-INF/classes" DIR="${warDir}\wsdl"
+				includes="mcs/**/*.*" />
+
+			<zipfileset prefix="WEB-INF/classes" DIR="${basedir}/classes"
+				includes="**/*.*" />
+		</jar>
+	</target>
+
+	<path id="classpath">
+		<pathelement location="${basedir}\classes" />
+	</path>
+
+	<path id="wslib">
+		<path location="${basedir}\..\ProjectLibs\JaxWSTools\webservices-rt.jar" />
+		<path location="${basedir}\..\ProjectLibs\JaxWSTools\webservices-tools.jar" />
+	</path>
+
+	<taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen"
+		classpathref="wslib" />
+	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport"
+		classpathref="wslib" />
+
+	<target name="createWsdl">
+		<delete dir="${warDir}/wsdl" />
+		<mkdir dir="${warDir}/wsdl" />
+		<!-- TODO [ Set name & path of the service ] 76-->		
+		<wsgen sei="mcs.code.sml.service.SMLService" destdir="${warDir}/wsdl"
+			keep="false" verbose="true" genwsdl="true">
+			<classpath refid="classpath" />
+		</wsgen>
+	</target>
+
+	<target name="wsImport" depends="createWsdl">
+		<delete dir="${warDir}/wsimport/" />
+		<mkdir dir="${warDir}/wsimport/" />
+		<mkdir dir="${warDir}/wsimport/classes" />
+		<mkdir dir="${warDir}/wsimport/src" />
+		<!-- TODO [ Set name of the wsdl file ]_________________________________ -->
+		<wsimport wsdl="${warDir}/wsdl/SMLServiceService.wsdl"
+			destdir="${warDir}/wsimport/classes" sourcedestdir="${warDir}/wsimport/src"
+			keep="true" verbose="true">
+		</wsimport>
+		<delete dir="${warDir}/wsimport/classes" />
+	</target>
+
+	<path id="cgantlib">
+		<path location="${basedir}\..\ProjectLibs\ClientDeployed\CGAntHelper.jar" />
+	</path>
+	<taskdef name="deployTask" classname="it.codegen.ant.Deploy"
+		classpathref="cgantlib" />
+	<target name="deploy">
+		<deployTask type="service" file="${warFile}" />
+	</target>
+
+	<target name="packandupload" depends="clean,createWsdl,package,deploy"
+		description="Package and Upload" />
+</project>

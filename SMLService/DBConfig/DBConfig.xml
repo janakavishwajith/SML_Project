@@ -1,0 +1,23 @@
+ <connection>
+     <which-session>1</which-session>
+     
+	 <session>
+	     <username>NISHAN</username>
+	     <password>NISHAN</password>
+	     <driverName>oracle.jdbc.driver.OracleDriver</driverName>
+	     <serverName>192.168.5.113</serverName>
+	     <portNumber>1521</portNumber>
+	     <sid>rndtrn</sid>
+	     <connection-url>jdbc:oracle:thin:@</connection-url>
+	 </session>
+	 
+	  <session>
+	     <username>NISHAN</username>
+	     <password>NISHAN</password>
+	     <driverName>oracle.jdbc.driver.OracleDriver</driverName>
+	     <serverName>192.168.5.113</serverName>
+	     <portNumber>1521</portNumber>
+	     <sid>rndtrn</sid>
+	     <connection-url>jdbc:oracle:thin:@</connection-url>
+	 </session>
+ </connection>

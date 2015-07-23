@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://entity.sml.code.mcs" xmlns:ns1="http://utils.sml.code.mcs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import namespace="http://utils.sml.code.mcs" schemaLocation="SMLServiceService_schema1.xsd"/>
+
+  <xs:complexType name="EntDoctors">
+    <xs:complexContent>
+      <xs:extension base="ns1:Savable">
+        <xs:sequence>
+          <xs:element name="adress" type="xs:string" minOccurs="0"/>
+          <xs:element name="doctorId" type="xs:int"/>
+          <xs:element name="email" type="xs:string" minOccurs="0"/>
+          <xs:element name="hospital" type="xs:string" minOccurs="0"/>
+          <xs:element name="specializationId" type="xs:int"/>
+          <xs:element name="fName" type="xs:string" minOccurs="0"/>
+          <xs:element name="lName" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
+
